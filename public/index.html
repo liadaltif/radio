@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <title>Altif's Radio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #121212;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 40px;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      font-size: 32px;
+    }
+
+    .station-btn {
+      width: 260px;
+      height: 60px;
+      font-size: 20px;
+      background: linear-gradient(145deg, #0f1c2e, #0a1724);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 14px;
+      text-align: left;
+      padding: 0 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .station-btn:hover {
+      background: #1e2f45;
+    }
+
+    .icon {
+      font-size: 20px;
+      width: 24px;
+      text-align: center;
+    }
+
+    #volumeContainer {
+      position: absolute;
+      bottom: 20px;
+      right: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #volumeSlider {
+      width: 120px;
+      accent-color: #2196f3;
+      background: transparent;
+      opacity: 0.85;
+    }
+
+    audio {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .station-btn {
+        width: 100%;
+        font-size: 18px;
+        height: 50px;
+      }
+
+      #volumeContainer {
+        right: 15px;
+        bottom: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📻 Altif's Radio</h1>
+
+  <button class="station-btn" data-stream="102fm"><span class="icon">▶️</span>102FM</button>
+  <button class="station-btn" data-stream="galgalatz"><span class="icon">▶️</span>Galgalatz</button>
+  <button class="station-btn" data-stream="kan88"><span class="icon">▶️</span>Kan 88</button>
+
+  <div id="volumeContainer">
+    <label for="volumeSlider">🔊</label>
+    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+  </div>
+
+  <audio id="radioPlayer" preload="none" playsinline></audio>
+
+  <script>
+    const audio = document.getElementById("radioPlayer");
+    const buttons = document.querySelectorAll(".station-btn");
+    const volumeSlider = document.getElementById("volumeSlider");
+
+    let currentButton = null;
+    let currentStation = null;
+    let metadataInterval = null;
+
+
+    function clearMetadataInterval() {
+      if (metadataInterval) {
+        clearInterval(metadataInterval);
+        metadataInterval = null;
+      }
+    }
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const station = button.getAttribute("data-stream");
+        const isSame = currentButton === button;
+
+        // stop current
+        if (audio.src && (!isSame || !audio.paused)) {
+          audio.pause();
+          audio.src = "";
+          clearMetadataInterval();
+          if (currentButton) currentButton.querySelector(".icon").textContent = "▶️";
+        }
+
+        if (!isSame || audio.paused) {
+          audio.src = `/stream/${station}`;
+          audio.play().catch(err => alert("Playback error: " + err.message));
+          button.querySelector(".icon").textContent = "⏸";
+          currentButton = button;
+          currentStation = station;
+
+        } else {
+          currentButton = null;
+          currentStation = null;
+        }
+      });
+    });
+
+    volumeSlider.addEventListener("input", () => {
+      audio.volume = volumeSlider.value;
+    });
+
+    audio.addEventListener("seeking", () => {
+      audio.currentTime = audio.duration || 0;
+    });
+  </script>
+
+</body>
+</html>
