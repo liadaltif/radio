@@ -125,32 +125,36 @@
       }
     }
 
-    buttons.forEach(button => {
-      button.addEventListener("click", () => {
-        const station = button.getAttribute("data-stream");
-        const isSame = currentButton === button;
+   buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    const station = button.getAttribute("data-stream");
+    const isSame = currentButton === button;
 
-        // stop current
-        if (audio.src && (!isSame || !audio.paused)) {
-          audio.pause();
-          audio.src = "";
-          clearMetadataInterval();
-          if (currentButton) currentButton.querySelector(".icon").textContent = "▶️";
-        }
+    // Always reset all button icons
+    buttons.forEach(btn => btn.querySelector(".icon").textContent = "▶️");
 
-        if (!isSame || audio.paused) {
-          audio.src = `/stream/${station}`;
-          audio.play().catch(err => alert("Playback error: " + err.message));
-          button.querySelector(".icon").textContent = "⏸";
-          currentButton = button;
-          currentStation = station;
+    if (isSame && !audio.paused) {
+      // Same station clicked again -> pause
+      audio.pause();
+      audio.src = "";
+      clearMetadataInterval();
+      currentButton = null;
+      currentStation = null;
+    } else {
+      // New station or resuming same
+      if (!audio.paused) {
+        audio.pause(); // Stop any current stream
+        clearMetadataInterval();
+      }
+      audio.src = `/stream/${station}`;
+      audio.play().catch(err => alert("Playback error: " + err.message));
+      button.querySelector(".icon").textContent = "⏸";
+      currentButton = button;
+      currentStation = station;
+    }
+  });
+});
 
-        } else {
-          currentButton = null;
-          currentStation = null;
-        }
-      });
-    });
 
     volumeSlider.addEventListener("input", () => {
       audio.volume = volumeSlider.value;
