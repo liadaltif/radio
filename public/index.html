@@ -46,7 +46,7 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: space-between;
     }
 
     .station-btn:hover {
@@ -56,7 +56,14 @@
     .icon {
       font-size: 20px;
       width: 24px;
-      text-align: center;
+      margin-right: 8px;
+    }
+
+    .station-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-grow: 1;
     }
 
     #volumeContainer {
@@ -95,11 +102,51 @@
 </head>
 <body>
 
-  <h1>📻 Altif's Radio</h1>
+  <h1>📻 Altif's Radio - 1234 Listeners</h1>
 
-  <button class="station-btn" data-stream="102fm"><span class="icon">▶️</span>102FM</button>
-  <button class="station-btn" data-stream="galgalatz"><span class="icon">▶️</span>Galgalatz</button>
-  <button class="station-btn" data-stream="kan88"><span class="icon">▶️</span>Kan 88</button>
+  <button class="station-btn" data-stream="102fm">
+    <span class="station-label"><span class="icon">▶️</span>102FM</span><span>123</span>
+  </button>
+
+    <button class="station-btn" data-stream="eco99fm">
+    <span class="station-label"><span class="icon">▶️</span>eco99fm</span><span>123</span>
+  </button>
+
+    <button class="station-btn" data-stream="radiohaifa">
+    <span class="station-label"><span class="icon">▶️</span>radiohaifa</span><span>123</span>
+  </button>
+
+    <button class="station-btn" data-stream="jerusalemfm">
+    <span class="station-label"><span class="icon">▶️</span>jerusalemfm</span><span>123</span>
+  </button>
+
+    <button class="station-btn" data-stream="radiodarom">
+    <span class="station-label"><span class="icon">▶️</span>radiodarom</span><span>123</span>
+  </button>
+
+    <button class="station-btn" data-stream="levhamedina">
+    <span class="station-label"><span class="icon">▶️</span>levhamedina</span><span>123</span>
+  </button>
+
+  <button class="station-btn" data-stream="galgalatz">
+    <span class="station-label"><span class="icon">▶️</span>Galgalatz</span><span>123</span>
+  </button>
+
+  <button class="station-btn" data-stream="galitzahal">
+    <span class="station-label"><span class="icon">▶️</span>Galatz</span><span>123</span>
+  </button>
+  
+  <button class="station-btn" data-stream="kan88">
+    <span class="station-label"><span class="icon">▶️</span>Kan 88</span><span>123</span>
+  </button>
+
+  <button class="station-btn" data-stream="kanbet">
+    <span class="station-label"><span class="icon">▶️</span>Kan Bet</span><span>123</span>
+  </button>
+
+  <button class="station-btn" data-stream="kangimmel">
+    <span class="station-label"><span class="icon">▶️</span>Kan Gimmel</span><span>123</span>
+  </button>
 
   <div id="volumeContainer">
     <label for="volumeSlider">🔊</label>
@@ -117,7 +164,6 @@
     let currentStation = null;
     let metadataInterval = null;
 
-
     function clearMetadataInterval() {
       if (metadataInterval) {
         clearInterval(metadataInterval);
@@ -125,36 +171,32 @@
       }
     }
 
-   buttons.forEach(button => {
-  button.addEventListener("click", () => {
-    const station = button.getAttribute("data-stream");
-    const isSame = currentButton === button;
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const station = button.getAttribute("data-stream");
+        const isSame = currentButton === button;
 
-    // Always reset all button icons
-    buttons.forEach(btn => btn.querySelector(".icon").textContent = "▶️");
+        buttons.forEach(btn => btn.querySelector(".icon").textContent = "▶️");
 
-    if (isSame && !audio.paused) {
-      // Same station clicked again -> pause
-      audio.pause();
-      audio.src = "";
-      clearMetadataInterval();
-      currentButton = null;
-      currentStation = null;
-    } else {
-      // New station or resuming same
-      if (!audio.paused) {
-        audio.pause(); // Stop any current stream
-        clearMetadataInterval();
-      }
-      audio.src = `/stream/${station}`;
-      audio.play().catch(err => alert("Playback error: " + err.message));
-      button.querySelector(".icon").textContent = "⏸";
-      currentButton = button;
-      currentStation = station;
-    }
-  });
-});
-
+        if (isSame && !audio.paused) {
+          audio.pause();
+          audio.src = "";
+          clearMetadataInterval();
+          currentButton = null;
+          currentStation = null;
+        } else {
+          if (!audio.paused) {
+            audio.pause();
+            clearMetadataInterval();
+          }
+          audio.src = `/stream/${station}`;
+          audio.play().catch(err => alert("Playback error: " + err.message));
+          button.querySelector(".icon").textContent = "⏸";
+          currentButton = button;
+          currentStation = station;
+        }
+      });
+    });
 
     volumeSlider.addEventListener("input", () => {
       audio.volume = volumeSlider.value;

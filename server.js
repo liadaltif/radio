@@ -7,8 +7,21 @@ const PORT = 3000;
 
 const STREAMS = {
   "102fm": "https://102.livecdn.biz/102fm_aac",
+  "eco99fm": "http://eco-live.mediacast.co.il/99fm_aac",
+
+  "radiohaifa": "http://ads11.livecdn.biz:80/radiohaifa",
+  
+  "jerusalemfm": "https://radio.streamgates.net/stream/101fm",
+  "radiodarom":  "https://cdn.cybercdn.live/Darom_97FM/Live/icecast.audio",
+  "levhamedina": "https://cdn.cybercdn.live/Lev_Hamedina/Audio/icecast.audio",
+
   "galgalatz": "https://glzwizzlv.bynetcdn.com/glglz_mp3",
-  "kan88": "https://playerservices.streamtheworld.com/api/livestream-redirect/KAN_88.mp3"
+  "galitzahal": "https://glzwizzlv.bynetcdn.com/glz_mp3",
+
+  "kan88": "https://playerservices.streamtheworld.com/api/livestream-redirect/KAN_88.mp3",
+  "kanbet": "https://kanbet.media.kan.org.il/hls/live/2024811/2024811/kanbet_mp3/chunklist.m3u8",
+  "kangimmel": "https://kangimmel.media.kan.org.il/hls/live/2024813/2024813/kangimmel_mp3/chunklist.m3u8",
+  
 };
 
 app.use(express.static(path.join(__dirname, "public")));
