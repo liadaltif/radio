@@ -1,156 +1,78 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <title>Altif's Radio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background-color: #121212;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
-    }
-
-    body {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-      padding: 40px;
-      box-sizing: border-box;
-      position: relative;
-    }
-
-    h1 {
-      margin-bottom: 10px;
-      font-size: 32px;
-    }
-
-    .station-btn {
-      width: 260px;
-      height: 60px;
-      font-size: 20px;
-      background: linear-gradient(145deg, #0f1c2e, #0a1724);
-      color: #ffffff;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-bottom: 14px;
-      text-align: left;
-      padding: 0 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .station-btn:hover {
-      background: #1e2f45;
-    }
-
-    .icon {
-      font-size: 20px;
-      width: 24px;
-      margin-right: 8px;
-    }
-
-    .station-label {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-grow: 1;
-    }
-
-    #volumeContainer {
-      position: absolute;
-      bottom: 20px;
-      right: 30px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    #volumeSlider {
-      width: 120px;
-      accent-color: #2196f3;
-      background: transparent;
-      opacity: 0.85;
-    }
-
-    audio {
-      display: none;
-    }
-
-    @media (max-width: 600px) {
-      .station-btn {
-        width: 100%;
-        font-size: 18px;
-        height: 50px;
-      }
-
-      #volumeContainer {
-        right: 15px;
-        bottom: 15px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <h1>📻 Altif's Radio - 1234 Listeners</h1>
+  <div class="wrapper">
+    <h1>📻 רדיו - 0 מאזינים כעת</h1>
 
-  <button class="station-btn" data-stream="eco99fm">
-    <span class="station-label"><span class="icon">▶️</span>eco99fm</span><span>123</span>
-  </button>
+    <div class="station-grid">
+      <button class="station-btn" data-stream="eco99fm">
+        <span class="station-label">אקו 99FM</span>
+        <span class="listener-count">0 מאזינים</span>
+      </button>
 
-  <button class="station-btn" data-stream="102fm">
-    <span class="station-label"><span class="icon">▶️</span>102FM</span><span>123</span>
-  </button>
+      <button class="station-btn" data-stream="102fm">
+        <span class="station-label">102FM</span>
+        <span class="listener-count">0 מאזינים</span>
+      </button>
 
-  <button class="station-btn" data-stream="103fm">
-    <span class="station-label"><span class="icon">▶️</span>103FM</span><span>123</span>
-  </button>
+      <button class="station-btn" data-stream="103fm">
+        <span class="station-label">103FM</span>
+        <span class="listener-count">0 מאזינים</span>
+      </button>
 
-    <button class="station-btn" data-stream="radiohaifa">
-    <span class="station-label"><span class="icon">▶️</span>radiohaifa</span><span>123</span>
-  </button>
+      <button class="station-btn" data-stream="radiohaifa">
+        <span class="station-label">רדיו חיפה</span>
+        <span class="listener-count">0 מאזינים</span>
+      </button>
 
-    <button class="station-btn" data-stream="jerusalemfm">
-    <span class="station-label"><span class="icon">▶️</span>jerusalemfm</span><span>123</span>
-  </button>
+      <button class="station-btn" data-stream="jerusalemfm">
+        <span class="station-label">רדיו ירושלים</span>
+        <span class="listener-count">0 מאזינים</span>
+      </button>
 
-    <button class="station-btn" data-stream="radiodarom">
-    <span class="station-label"><span class="icon">▶️</span>radiodarom</span><span>123</span>
-  </button>
+      <button class="station-btn" data-stream="radiodarom">
+        <span class="station-label">רדיו דרום</span>
+        <span class="listener-count">0 מאזינים</span>
+      </button>
 
-    <button class="station-btn" data-stream="levhamedina">
-    <span class="station-label"><span class="icon">▶️</span>levhamedina</span><span>123</span>
-  </button>
+      <button class="station-btn" data-stream="levhamedina">
+        <span class="station-label">לב המדינה</span>
+        <span class="listener-count">0 מאזינים</span>
+      </button>
 
-  <button class="station-btn" data-stream="galgalatz">
-    <span class="station-label"><span class="icon">▶️</span>Galgalatz</span><span>123</span>
-  </button>
+      <button class="station-btn" data-stream="galgalatz">
+        <span class="station-label">גלגל"צ</span>
+        <span class="listener-count">0 מאזינים</span>
+      </button>
 
-  <button class="station-btn" data-stream="galitzahal">
-    <span class="station-label"><span class="icon">▶️</span>Galatz</span><span>123</span>
-  </button>
-  
-  <button class="station-btn" data-stream="kan88">
-    <span class="station-label"><span class="icon">▶️</span>Kan 88</span><span>123</span>
-  </button>
+      <button class="station-btn" data-stream="galitzahal">
+        <span class="station-label">גלי צה"ל</span>
+        <span class="listener-count">0 מאזינים</span>
+      </button>
 
-  <button class="station-btn" data-stream="kanbet">
-    <span class="station-label"><span class="icon">▶️</span>Kan Bet</span><span>123</span>
-  </button>
+      <button class="station-btn" data-stream="kan88">
+        <span class="station-label">כאן 88</span>
+        <span class="listener-count">0 מאזינים</span>
+      </button>
 
-  <button class="station-btn" data-stream="kangimmel">
-    <span class="station-label"><span class="icon">▶️</span>Kan Gimmel</span><span>123</span>
-  </button>
+      <button class="station-btn" data-stream="kanbet">
+        <span class="station-label">כאן ב'</span>
+        <span class="listener-count">0 מאזינים</span>
+      </button>
+
+      <button class="station-btn" data-stream="kangimmel">
+        <span class="station-label">כאן ג'</span>
+        <span class="listener-count">0 מאזינים</span>
+      </button>
+    </div>
+  </div>
 
   <div id="volumeContainer">
     <label for="volumeSlider">🔊</label>
@@ -158,58 +80,7 @@
   </div>
 
   <audio id="radioPlayer" preload="none" playsinline></audio>
-
-  <script>
-    const audio = document.getElementById("radioPlayer");
-    const buttons = document.querySelectorAll(".station-btn");
-    const volumeSlider = document.getElementById("volumeSlider");
-
-    let currentButton = null;
-    let currentStation = null;
-    let metadataInterval = null;
-
-    function clearMetadataInterval() {
-      if (metadataInterval) {
-        clearInterval(metadataInterval);
-        metadataInterval = null;
-      }
-    }
-
-    buttons.forEach(button => {
-      button.addEventListener("click", () => {
-        const station = button.getAttribute("data-stream");
-        const isSame = currentButton === button;
-
-        buttons.forEach(btn => btn.querySelector(".icon").textContent = "▶️");
-
-        if (isSame && !audio.paused) {
-          audio.pause();
-          audio.src = "";
-          clearMetadataInterval();
-          currentButton = null;
-          currentStation = null;
-        } else {
-          if (!audio.paused) {
-            audio.pause();
-            clearMetadataInterval();
-          }
-          audio.src = `/stream/${station}`;
-          audio.play().catch(err => alert("Playback error: " + err.message));
-          button.querySelector(".icon").textContent = "⏸";
-          currentButton = button;
-          currentStation = station;
-        }
-      });
-    });
-
-    volumeSlider.addEventListener("input", () => {
-      audio.volume = volumeSlider.value;
-    });
-
-    audio.addEventListener("seeking", () => {
-      audio.currentTime = audio.duration || 0;
-    });
-  </script>
+  <script src="script.js"></script>
 
 </body>
 </html>

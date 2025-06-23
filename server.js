@@ -13,15 +13,14 @@ const PORT = 3000;
 const STREAMS = {
 
   "eco99fm": "http://eco-live.mediacast.co.il/99fm_aac",
-
   "102fm": "https://102.livecdn.biz/102fm_aac",
   "103fm": "https://cdn.cybercdn.live/103FM/Live/icecast.audio",
 
   "radiohaifa": "http://ads11.livecdn.biz:80/radiohaifa",
   "jerusalemfm": "https://radio.streamgates.net/stream/101fm",
   "radiodarom":  "https://cdn.cybercdn.live/Darom_97FM/Live/icecast.audio",
+  
   "levhamedina": "https://cdn.cybercdn.live/Lev_Hamedina/Audio/icecast.audio",
-
   "galgalatz": "https://glzwizzlv.bynetcdn.com/glglz_mp3",
   "galitzahal": "https://glzwizzlv.bynetcdn.com/glz_mp3",
 

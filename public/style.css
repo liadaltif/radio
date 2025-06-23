@@ -1,0 +1,114 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #121212;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  direction: rtl;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+h1 {
+  font-size: 32px;
+  margin: 0;
+  text-align: center;
+}
+
+.station-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, auto);
+  gap: 30px 20px;
+  justify-items: center;
+}
+
+.station-btn {
+  background: linear-gradient(145deg, #0f1c2e, #0a1724);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  padding: 20px 28px;
+  width: 280px;
+  min-height: 100px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 6px;
+}
+
+.station-btn:hover {
+  background: #1e2f45;
+  transform: scale(1.03);
+}
+
+.station-btn.active {
+  background: linear-gradient(145deg, #1a3b66, #102e50);
+  box-shadow: 0 0 12px #2196f3;
+}
+
+.station-label {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.listener-count {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+#volumeContainer {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+#volumeSlider {
+  width: 120px;
+  direction: ltr;
+  accent-color: #2196f3;
+  background: transparent;
+  opacity: 0.85;
+}
+
+audio {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .station-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(6, auto);
+  }
+}
+
+@media (max-width: 768px) {
+  .station-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(12, auto);
+  }
+}
